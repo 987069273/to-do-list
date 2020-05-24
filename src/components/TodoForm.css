@@ -1,0 +1,16 @@
+@import '../App.css';
+
+/* 使用BEM标准 */
+
+.todoForm_div--evenSpread {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todoForm_spaceSpan--right {
+    margin-right: 0.2rem;
+}
+
+label {
+    margin-left: 0;
+}
