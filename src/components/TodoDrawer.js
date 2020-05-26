@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import TodoForm from './TodoForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './TodoDrawer.css';
-
 
 class TodoDrawer extends Component {
     render() {
@@ -19,4 +19,4 @@ class TodoDrawer extends Component {
     }
 }
 
-export default TodoDrawer;
+export default connect()(TodoDrawer);

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInbox, faFilter } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -29,15 +31,29 @@ const fakeData = [
   },
 ];
 
-export default class TodoListPage extends Component {
+const mapDispatchToProps = dispatch => (
+  {onClick: bindActionCreators(() => ({type: 'ADD_TODO'}), dispatch)}
+);
+
+const AddButton = connect(null, mapDispatchToProps)(({onClick}) => (
+  <button
+    className="btn todoListPage_btn--bordered"
+    onClick = {onClick}
+  >
+    新增
+  </button>
+));
+
+class TodoListPage extends Component {  
   render() {
+    // console.log('change todo list page');
     return (
       <div className="todoListPage">
         <div className="todoListPage_title">
           <h5>任务列表</h5>
         </div>
         <div>
-          <button className="btn todoListPage_btn--bordered">新增</button>
+        <AddButton />
         </div>
         <table className="table todoListPage_table">
           <thead>
@@ -127,20 +143,20 @@ export default class TodoListPage extends Component {
           </tbody>
         </table>
         <nav className="todoListPage_div_right">
-          <ul class="pagination">
-            <li class="page-item">
+          <ul className="pagination">
+            <li className="page-item">
               <span className="page-link gray_txt">&lt;</span>
             </li>
-            <li class="page-item">
+            <li className="page-item">
               <span className="page-link">1</span>
             </li>
-            <li class="page-item">
+            <li className="page-item">
               <span className="page-link black_txt">2</span>
             </li>
-            <li class="page-item">
+            <li className="page-item">
               <span className="page-link black_txt">3</span>
             </li>
-            <li class="page-item">
+            <li className="page-item">
               <span className="page-link black_txt">&gt;</span>
             </li>
           </ul>
@@ -148,4 +164,6 @@ export default class TodoListPage extends Component {
       </div>
     );
   }
-}
+};
+
+export default TodoListPage;
