@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+
 
 import List from './Router';
 import TodoDrawer from './components/TodoDrawer';
+import PropTypes from 'prop-types';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 
 function App({showTodoDrawer}) {
@@ -21,4 +24,8 @@ function App({showTodoDrawer}) {
   );
 }
 
-export default connect(state =>({showTodoDrawer: state.showTodoDrawer}))(App);
+App.propTypes = {
+  showTodoDrawer: PropTypes.bool,
+}
+
+export default connect(state =>({showTodoDrawer: state.todoDrawer.showTodoDrawer}))(App);
