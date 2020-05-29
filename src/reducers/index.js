@@ -115,7 +115,9 @@ const initialState = {
       filteredBy: "全部",
       filteredTodos: fakeData.filter(() => true),
       totalPageNum:
-        Math.ceil(fakeData.length / ENTRIES_IN_A_PAGE) === 0 ? 1 : Math.ceil(fakeData.length / ENTRIES_IN_A_PAGE),
+        Math.ceil(fakeData.length / ENTRIES_IN_A_PAGE) === 0
+          ? 1
+          : Math.ceil(fakeData.length / ENTRIES_IN_A_PAGE),
     },
   },
 };
@@ -132,9 +134,11 @@ const alterTodoDrawer = (state = initialState.todoDrawer, action) => {
         formInfo: { ...state.formInfo, title, dueTo, content },
       };
     case "RELOAD_ENTRY":
+      // console.log(state.entryEdited)
       return {
         ...state,
         formInfo: {
+          ...state.formInfo,
           title: state.entryEdited.title,
           dueTo: state.entryEdited.dueTo,
           content: state.entryEdited.content,

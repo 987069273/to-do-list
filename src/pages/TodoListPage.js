@@ -70,19 +70,6 @@ const TodoListPage = ({
   toFilter,
   navToPage,
 }) => {
-  console.log(
-    filteredBy,
-    todosInPage,
-    pageNumber,
-    totalPageNum,
-    clickAddButton,
-    clickEditButton,
-    clickTodoButton,
-    clickFinishButton,
-    clickDelButton,
-    toFilter,
-    navToPage
-  );
   return (
     <div className="todoListPage">
       <div className="todoListPage_title">
@@ -179,7 +166,7 @@ const TodoListPage = ({
                   <button
                     className="btn todoListPage_btn--bordered"
                     onClick={() => {
-                      clickEditButton(item);
+                      clickEditButton(item, index);
                     }}
                   >
                     编辑
@@ -188,7 +175,7 @@ const TodoListPage = ({
                     <button
                       className="btn todoListPage_btn--bordered"
                       onClick={() => {
-                        clickTodoButton(item);
+                        clickTodoButton(item, index);
                       }}
                     >
                       待办
@@ -198,7 +185,7 @@ const TodoListPage = ({
                     <button
                       className="btn todoListPage_btn--bordered"
                       onClick={() => {
-                        clickFinishButton(item);
+                        clickFinishButton(item, index);
                       }}
                     >
                       完成
@@ -208,7 +195,7 @@ const TodoListPage = ({
                     <button
                       className="btn todoListPage_btn--bordered red_txt"
                       onClick={() => {
-                        clickDelButton(item);
+                        clickDelButton(item, index);
                       }}
                     >
                       删除

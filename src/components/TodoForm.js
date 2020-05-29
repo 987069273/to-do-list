@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import "./TodoForm.css";
 
 const mapStateToProps = (state) => {
-  // console.log(state.todoDrawer.formInfo);
   return {
     entryEdited: state.todoDrawer.entryEdited,
     formInfo: state.todoDrawer.formInfo,
@@ -17,10 +16,13 @@ const mapDispatchToProps = (dispatch) => ({
   onChange: bindActionCreators((e, inputId) => {
     return { type: "EDIT_FORM", inputInfo: { [inputId]: e.target.value } };
   }, dispatch),
-  saveEntry: bindActionCreators((entry) => ({ type: "SAVE_TODO" , entry}), dispatch),
-  clickReloadButton: bindActionCreators((node) => {
+  saveEntry: bindActionCreators(
+    (entry) => ({ type: "SAVE_TODO", entry }),
+    dispatch
+  ),
+  clickReloadButton: bindActionCreators(() => {
     // 此处问题待解决，实际需要达到的效果是，去除node节点的红框效果
-    node.current.blur();
+    // node.current.blur();
     return { type: "RELOAD_ENTRY" };
   }, dispatch),
   clearForm: bindActionCreators(
@@ -37,6 +39,7 @@ const Form = ({
   clickReloadButton,
   clearForm,
 }) => {
+  // console.log({ entryEdited, formInfo });
   const node = useRef(null);
   return (
     <form /* action="" method="post" */>
@@ -86,7 +89,20 @@ const Form = ({
           type="submit"
           className="btn bordered_btn btn-primary"
           onClick={() => {
-            saveEntry((entryEdited.id ? {...formInfo, id: entryEdited.id} : formInfo));
+            // 去除首尾空格
+            const entry = Object.entries(
+              entryEdited.id ? { ...formInfo, id: entryEdited.id } : formInfo
+            ).reduce(
+              (acc, cur) =>
+                Object.assign({}, acc, {
+                  [cur[0]]: typeof cur[1] === "string" ? cur[1].trim() : cur[1],
+                }),
+              {}
+            );
+            // 处理输入未输入有效标题的情况
+            if (entry.title.length !== 0) {
+              saveEntry(entry);
+            }
             clearForm();
           }}
         >
@@ -94,7 +110,7 @@ const Form = ({
         </button>
         <button
           className="btn bordered_btn"
-          onClick={() => clickReloadButton(node)}
+          onClick={() => clickReloadButton()}
         >
           重置
         </button>

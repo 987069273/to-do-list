@@ -1,25 +1,19 @@
 import { ENTRIES_IN_A_PAGE, initialState } from "./index";
+import uuidv4 from "uuid/v4";
 
 const getTodos = (todos, newTodo) => {
-  let addOrNot = true;
-  const newTodos = todos.map((item) => {
-    if (item.id !== newTodo.id) {
-      return item;
-    } else {
-      if (item.id) {
-        addOrNot = false;
-        console.log("add a new entry");
-        return { ...item, ...newTodo };
-      } else {
+  let newTodos = [...todos];
+  if (!newTodo.id) {
+    newTodos.push({ ...newTodo, status: "待办", id: uuidv4() });
+  } else {
+    newTodos = todos.map((item) => {
+      if (item.id !== newTodo.id) {
         return item;
+      } else {
+        return { ...item, ...newTodo };
       }
-    }
-  });
-  if (addOrNot) {
-    console.log("新增了一条");
-    newTodos.push({ ...newTodo, status: "待办" });
+    });
   }
-  console.log(newTodo);
   return newTodos;
 };
 
@@ -38,18 +32,15 @@ const getTodosToShow = (todos, pageNumber) => {
     (pageNumber - 1) * ENTRIES_IN_A_PAGE,
     pageNumber * ENTRIES_IN_A_PAGE
   );
-  console.log(todosInPage);
   return todosInPage;
 };
 
 const updateFilter = (todos, filterBy, pageNumber, filter) => {
-  console.log({ todos, filterBy, pageNumber, filter });
   const filteredTodos = getFilteredTodos(todos, filterBy);
   let totalPageNum =
     Math.ceil(filteredTodos.length / ENTRIES_IN_A_PAGE) === 0
       ? 1
       : Math.ceil(filteredTodos.length / ENTRIES_IN_A_PAGE);
-  console.log(totalPageNum);
   const todosToShow = getTodosToShow(filteredTodos, pageNumber);
   const newFilter = {
     ...filter,
@@ -109,7 +100,6 @@ const todos = (state = initialState.todos, action) => {
       );
       return { ...state, ...newState };
     case "SAVE_TODO":
-      console.log(action.entry);
       newState = updateTodos(
         state.allTodos,
         action.entry,
@@ -117,13 +107,12 @@ const todos = (state = initialState.todos, action) => {
         state.todosInPage.pageNumber,
         state.filter
       );
-      console.log(newState);
       return { ...state, ...newState };
     case "FILTER_BY":
       const newFilterAndTodosInPage = updateFilter(
         state.allTodos,
         action.filterBy,
-        state.todosInPage.pageNumber,
+        1,
         state.filter
       );
       return { ...state, ...newFilterAndTodosInPage };
@@ -132,10 +121,6 @@ const todos = (state = initialState.todos, action) => {
         state.filter.filteredTodos,
         action.pageNumber
       );
-      console.log({
-        ...state,
-        todosInPage: { newTodosToShow, pageNumber: action.pageNumber },
-      });
       return {
         ...state,
         todosInPage: {
