@@ -72,146 +72,162 @@ const TodoListPage = ({
 }) => {
   return (
     <div className="todoListPage">
-      <div className="todoListPage_title">
+      <div
+        id="todoListPage_title"
+        className="d-flex w-100 p-0 mx-0 my-1 text-black text-break align-middle font-weight-bold"
+      >
         <h5>任务列表</h5>
       </div>
       <div>
-        <button
-          className="btn todoListPage_btn--bordered"
-          onClick={clickAddButton}
-        >
+        <button className="btn border" onClick={clickAddButton}>
           新增
         </button>
       </div>
-      <table className="table todoListPage_table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>标题</th>
-            <th>内容</th>
-            <th>截止日期</th>
-            <th>状态</th>
-            <th>
-              <span>操作</span>
-              <span className="todoListPage--right">
-                <div className="dropdown">
-                  <button
-                    className="btn dropdown-toggle"
-                    type="button"
-                    id="filterMenu"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    data-offset="-40, 0"
-                  >
-                    <FontAwesomeIcon icon={faFilter} size="sm" />
-                  </button>
-                  <div className="dropdown-menu dropdownDiv">
-                    {filterArr.map((item) => {
-                      return (
-                        <span
-                          key={item}
-                          className="dropdown-item"
+      <div className="table-responsive">
+        <table className="table table-sm table-bordered table-hover rounded-lg my-2 text-center text-wrap">
+          <caption></caption>
+          <thead className="thead-light">
+            <tr>
+              <th scope="col" className=" align-middle">
+                ID
+              </th>
+              <th scope="col" className=" align-middle">
+                标题
+              </th>
+              <th scope="col" className=" align-middle">
+                内容
+              </th>
+              <th scope="col" className=" align-middle">
+                截止日期
+              </th>
+              <th scope="col" className=" align-middle">
+                状态
+              </th>
+              <th className="position-relative" scope="col">
+                <span>操作</span>
+                <span className="todoListPage--right position-absolute">
+                  <div className="dropdown">
+                    <button
+                      className="btn dropdown-toggle"
+                      type="button"
+                      id="filterMenu"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      data-offset="-40, 0"
+                    >
+                      <FontAwesomeIcon icon={faFilter} size="sm" />
+                    </button>
+                    <div className="dropdown-menu dropdown p-1">
+                      {filterArr.map((item) => {
+                        return (
+                          <span
+                            key={item}
+                            className="dropdown-item px-2 align-middle"
+                            onClick={() => {
+                              toFilter(item);
+                            }}
+                          >
+                            {item === filteredBy && (
+                              <input
+                                type="radio"
+                                id={item}
+                                checked
+                                onChange={() => {
+                                  toFilter(item);
+                                }}
+                              />
+                            )}
+                            {item !== filteredBy && (
+                              <input
+                                type="radio"
+                                id={item}
+                                onChange={() => {
+                                  toFilter(item);
+                                }}
+                              />
+                            )}
+                            <label className="mx-2 my-1" htmlFor="all">
+                              {item}
+                            </label>
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {!todosInPage && (
+              <tr className="mx-auto align-middle">
+                <FontAwesomeIcon icon={faInbox} size="lg" />
+                <h5>暂无数据</h5>
+              </tr>
+            )}
+            {todosInPage &&
+              todosInPage.map((item, index) => (
+                <tr key={index}>
+                  <td className="text-break align-middle">{item.id}</td>
+                  <td className="text-wrap align-middle">{item.title}</td>
+                  <td className="text-wrap align-middle">{item.content}</td>
+                  <td className=" align-middle">{item.dueTo}</td>
+                  <td className=" align-middle">{item.status}</td>
+                  <td className=" align-middle">
+                    <div className="btn-group" role="group">
+                      <button
+                        className="btn border rounded mx-1"
+                        onClick={() => {
+                          clickEditButton(item, index);
+                        }}
+                      >
+                        编辑
+                      </button>
+                      {item.status === "完成" && (
+                        <button
+                          className="btn border rounded mx-1"
                           onClick={() => {
-                            toFilter(item);
+                            clickTodoButton(item, index);
                           }}
                         >
-                          {item === filteredBy && (
-                            <input
-                              type="radio"
-                              id={item}
-                              checked
-                              onChange={() => {
-                                toFilter(item);
-                              }}
-                            />
-                          )}
-                          {item !== filteredBy && (
-                            <input
-                              type="radio"
-                              id={item}
-                              onChange={() => {
-                                toFilter(item);
-                              }}
-                            />
-                          )}
-                          <label className="ml-2" htmlFor="all">
-                            {item}
-                          </label>
-                        </span>
-                      );
-                    })}
-                  </div>
-                </div>
-              </span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {!todosInPage && (
-            <tr>
-              <FontAwesomeIcon icon={faInbox} size="lg" />
-              <h5>暂无数据</h5>
-            </tr>
-          )}
-          {todosInPage &&
-            todosInPage.map((item, index) => (
-              <tr key={index}>
-                <td>{item.id}</td>
-                <td>{item.title}</td>
-                <td>{item.content}</td>
-                <td>{item.dueTo}</td>
-                <td>{item.status}</td>
-                <td>
-                  <button
-                    className="btn todoListPage_btn--bordered"
-                    onClick={() => {
-                      clickEditButton(item, index);
-                    }}
-                  >
-                    编辑
-                  </button>
-                  {item.status === "完成" && (
-                    <button
-                      className="btn todoListPage_btn--bordered"
-                      onClick={() => {
-                        clickTodoButton(item, index);
-                      }}
-                    >
-                      待办
-                    </button>
-                  )}
-                  {item.status === "待办" && (
-                    <button
-                      className="btn todoListPage_btn--bordered"
-                      onClick={() => {
-                        clickFinishButton(item, index);
-                      }}
-                    >
-                      完成
-                    </button>
-                  )}
-                  {item.status !== "删除" && (
-                    <button
-                      className="btn todoListPage_btn--bordered red_txt"
-                      onClick={() => {
-                        clickDelButton(item, index);
-                      }}
-                    >
-                      删除
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-      <nav className="todoListPage_div--right">
+                          待办
+                        </button>
+                      )}
+                      {item.status === "待办" && (
+                        <button
+                          className="btn border rounded mx-1"
+                          onClick={() => {
+                            clickFinishButton(item, index);
+                          }}
+                        >
+                          完成
+                        </button>
+                      )}
+                      {item.status !== "删除" && (
+                        <button
+                          className="btn border rounded text-danger mx-1"
+                          onClick={() => {
+                            clickDelButton(item, index);
+                          }}
+                        >
+                          删除
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+      <nav className="todoListPage--right position-absolute text-secondary">
         <ul className="pagination">
           <li className="page-item">
             <span
               className={classNames("page-link", {
-                gray_txt: pageNumber === 1,
+                "text-reset": pageNumber !== 1,
+                "text-body": pageNumber === 1,
               })}
               onClick={
                 pageNumber === 1 ? null : () => navToPage(pageNumber - 1)
@@ -222,7 +238,8 @@ const TodoListPage = ({
           </li>
           {[...new Array(totalPageNum).keys()].map((item, index) => {
             const classnames = classNames("page-link", {
-              black_txt: pageNumber === index + 1,
+              "text-reset": pageNumber !== index + 1,
+              "text-body": pageNumber === index + 1,
             });
             return (
               <li key={index} className="page-item">
@@ -240,7 +257,8 @@ const TodoListPage = ({
           <li className="page-item">
             <span
               className={classNames("page-link", {
-                gray_txt: pageNumber === totalPageNum,
+                "text-reset": pageNumber !== totalPageNum,
+                "text-body": pageNumber === totalPageNum,
               })}
               onClick={
                 pageNumber === totalPageNum

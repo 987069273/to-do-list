@@ -1,83 +1,33 @@
-/* @import '../App.css'; */
-
 /* 使用BEM标准 */
 
-.todoListPage_title {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    padding: 0;
-    margin: 10px auto;
-    color: #000000;
-    font-weight: bold;
-    vertical-align: middle;
-    font-size: 16px;
-    line-height: 15px;
-    
+#todoListPage_title::before {
+  display: inline-block;
+  content: "";
+  width: calc(50% - 60px);
+  height: 0;
+  margin: auto;
+  margin-left: 0;
+  position: relative;
+  left: 0px;
+  border: 1px solid #efefef;
 }
 
-th {
-    position: relative;
-}
-
-
-.todoListPage_title::before {
-    display: inline-block;
-    content: '';
-    width: calc(50% - 60px);
-    height: 0;
-    margin: auto;
-    margin-left: 0;
-    position: relative;
-    left: 0px;
-    border: 1px solid #efefef;
-}
-
-.todoListPage_title::after {
-    display: inline-block;
-    content: '';
-    width: calc(50% - 60px);
-    height: 0;
-    margin: auto;
-    margin-right: 0;
-    position: relative;
-    right: 0px;
-    border: 1px solid #efefef;
-}
-
-.todoListPage_btn--bordered {
-    border: 1px solid #dddddd;
-}
-
-.todoListPage_table {
-    margin: 10px auto;
-    text-align: center;
-}
-
-.todoListPage_btnGroup {
-    position: relative;
-    right: 0;
-}
-
-.todoListPage--red {
-    color: #ff0000;
+#todoListPage_title::after {
+  display: inline-block;
+  content: "";
+  width: calc(50% - 60px);
+  height: 0;
+  margin: auto;
+  margin-right: 0;
+  position: relative;
+  right: 0px;
+  border: 1px solid #efefef;
 }
 
 .todoListPage--right {
-    position: absolute;
-    right:0;
+  right: 0;
 }
 
-.dropdownDiv {
-    min-width: 50px;
+.dropdown {
+  min-width: 50px;
 }
-
-.todoListPage_div--right {
-    position: absolute;
-    right: 0px;
-}
-
-label {
-    margin-left: 10px;
-}
-

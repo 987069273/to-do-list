@@ -6,9 +6,10 @@ import "./TodoDrawer.css";
 class TodoDrawer extends Component {
   render() {
     return (
-      <div className="todoDrawer_layer--transparent">
-        <div className="container todoDrawer_panel">
-          <h5 className="todoDrawer_title">任务详情</h5>
+      <div className='container-fluid h-100'>
+        <div className="todoDrawer_layer--transparent position-fixed h-100 w-100"></div>
+        <div className="todoDrawer_panel container-sm position-fixed h-100 ">
+          <h5 className="mt-4">任务详情</h5>
           <hr />
           <TodoForm />
         </div>

@@ -1,8 +1,6 @@
 .todoDrawer_layer--transparent {
-  position: absolute;
+  left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
   background-color: rgba(199, 199, 199, 0.5);
 }
 
@@ -10,12 +8,7 @@
   background-color: #ffffff;
   border-color: #d4d4d4;
   box-shadow: 0 0 5px 5px #b7b7b7;
-  position: fixed;
   right: 0;
-  height: 100%;
-  width: 40%;
-}
-
-.todoDrawer_title {
-    margin-top: 20px;
+  top:0;
+  max-width: 576px;
 }

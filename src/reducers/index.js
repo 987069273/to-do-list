@@ -154,7 +154,7 @@ const alterTodoDrawer = (state = initialState.todoDrawer, action) => {
 const Reducers = combineReducers({
   todoDrawer: alterTodoDrawer,
   todos: todos,
-});
+}, window.STATE_FROM_SERVER);
 
 export default Reducers;
 export { ENTRIES_IN_A_PAGE, initialState };

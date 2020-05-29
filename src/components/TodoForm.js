@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
 
-import "./TodoForm.css";
-
 const mapStateToProps = (state) => {
   return {
     entryEdited: state.todoDrawer.entryEdited,
@@ -44,8 +42,8 @@ const Form = ({
   return (
     <form /* action="" method="post" */>
       <div className="form-group">
-        <label htmlFor="title">
-          <span className="red_txt todoForm_spaceSpan--right">*</span>任务名称
+        <label className="ml-0" htmlFor="title">
+          <span className="text-danger mr-1">*</span>任务名称
         </label>
         <input
           className="form-control"
@@ -57,8 +55,8 @@ const Form = ({
         />
       </div>
       <div className="form-group">
-        <label htmlFor="dueTo">
-          <span className="red_txt todoForm_spaceSpan--right">*</span>
+        <label className="ml-0" htmlFor="dueTo">
+          <span className="text-danger mr-1">*</span>
           任务截止日期
         </label>
         <input
@@ -76,7 +74,9 @@ const Form = ({
         />
       </div>
       <div className="form-group">
-        <label htmlFor="title">任务内容</label>
+        <label className="ml-0" htmlFor="title">
+          任务内容
+        </label>
         <input
           className="form-control"
           id="content"
@@ -84,10 +84,10 @@ const Form = ({
           onChange={(e) => onChange(e, "content")}
         />
       </div>
-      <div className="todoForm_div--evenSpread">
+      <div className="d-flex justify-content-between">
         <button
           type="submit"
-          className="btn bordered_btn btn-primary"
+          className="btn border btn-primary"
           onClick={() => {
             // 去除首尾空格
             const entry = Object.entries(
@@ -108,14 +108,11 @@ const Form = ({
         >
           保存
         </button>
-        <button
-          className="btn bordered_btn"
-          onClick={() => clickReloadButton()}
-        >
+        <button className="btn border" onClick={() => clickReloadButton()}>
           重置
         </button>
         <button
-          className="btn bordered_btn red_txt btn_light"
+          className="btn border text-danger btn_light"
           onClick={clearForm}
         >
           取消
