@@ -27,7 +27,7 @@
     "uuid": "^8.1.0"
   },
   "scripts": {
-    "react-start": "set PORT=3003 && react-scripts start",
+    "react-start": "react-scripts start",
     "start": "concurrently \"yarn react-start\" \"cd  todo_api && yarn start\"",
     "react-build": "react-scripts build",
     "build": "concurrently \"yarn react-build\" \"cd  todo_api && yarn build\"",
@@ -54,6 +54,5 @@
     "prop-types": "^15.7.2",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5"
-  },
-  "proxy": "http://127.0.0.1:3000"
+  }
 }
